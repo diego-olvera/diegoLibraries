@@ -8,6 +8,9 @@ public class MailBody {
 	public static final String PLAIN_TEXT="text/plain";
 	public static final String HTML_TEXT="text/html";
 	
+	public MailBody(String content) {
+		this(content,PLAIN_TEXT);
+	}
 	public MailBody(String content, String type) {
 		setContent(content);
 		setType(type);
