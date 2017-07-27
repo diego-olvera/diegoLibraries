@@ -16,7 +16,7 @@ public class MailBody {
 		setType(type); 
 	}
 	public String getContent() {
-		return content;
+		return content; 
 	}
 	
 	public void setContent(String c) {
