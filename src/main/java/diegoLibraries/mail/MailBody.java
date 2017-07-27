@@ -30,5 +30,4 @@ public class MailBody {
 		type=t.equals(PLAIN_TEXT)|| t.equals(HTML_TEXT)?t:PLAIN_TEXT;
 	}
 	
-	
 }
