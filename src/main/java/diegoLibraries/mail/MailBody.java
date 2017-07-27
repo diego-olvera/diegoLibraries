@@ -1,12 +1,12 @@
 package diegoLibraries.mail;
 
 public class MailBody {
-	private String content;
-	private String type;
-	
 	
 	public static final String PLAIN_TEXT="text/plain";
 	public static final String HTML_TEXT="text/html";
+	
+	private String content;
+	private String type;
 	
 	public MailBody(String content) {
 		this(content,PLAIN_TEXT);
