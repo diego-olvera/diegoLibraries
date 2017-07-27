@@ -17,6 +17,16 @@ public class MailUser implements CloneObject<MailUser>{
 	public MailUser(MailUser us){
 		this(us.getName(),us.getPassword(),us.getHost(),us.getPort());
 	}
+	public MailUser(String name, String password,int port) {
+		this(name,password,getHost(name),port);
+	}
+	public MailUser(String name, String password) {
+		this(name,password,SMTP_Constants.getPort((getHost(name))));
+	}
+
+	public static String getHost(String name) {
+		return "smtp."+name.substring(name.indexOf("@")+1);
+	}
 	public MailUser clone(){
 		return new MailUser(this);
 	}
