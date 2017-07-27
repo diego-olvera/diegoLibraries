@@ -13,7 +13,7 @@ public class MailBody {
 	}
 	public MailBody(String content, String type) {
 		setContent(content);
-		setType(type);
+		setType(type); 
 	}
 	public String getContent() {
 		return content;
