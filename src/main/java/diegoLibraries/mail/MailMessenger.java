@@ -318,7 +318,7 @@ public class MailMessenger implements SMTP_Constants{
 		try {
 			return new MailBody(FileUtil.getContents("webMailPage.html",Charset.forName("utf-8")
 					),MailBody.HTML_TEXT);
-		} catch (IOException e) {
+		} catch (IOException e){
 			return new MailBody("web page not found",MailBody.PLAIN_TEXT);
 		}
 	}
