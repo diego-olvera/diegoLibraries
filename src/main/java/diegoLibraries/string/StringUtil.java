@@ -35,7 +35,7 @@ public class StringUtil {
 	
 	public static Pattern pwdPattern = Pattern
 				.compile("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,100})");
-	
+	 
 	public static boolean anagram(ArrayList<String> strings) {
 		int i,stringsSize=strings.size();
 		ArrayList<HashMap<Character,WrapperInt>> stringFrequencies=new ArrayList<>(stringsSize);
