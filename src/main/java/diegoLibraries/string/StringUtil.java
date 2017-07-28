@@ -31,7 +31,7 @@ public class StringUtil {
 	
 	public static final int RFC_SIZE=13;
 	//RFC Validations
-	public static final int CHAR_FIRST_VALIDATION=4,CHAR_SECONCD_VALIDATION=10;  
+	public static final int CHAR_FIRST_VALIDATION=4,CHAR_SECOND_VALIDATION=10;  
 	
 	public static Pattern pwdPattern = Pattern
 				.compile("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,100})");
@@ -136,12 +136,12 @@ public class StringUtil {
 			rfc=new StringBuilder(RFC_SIZE);
 			rfcSize=RFC_SIZE;
 			firstCharValid=CHAR_FIRST_VALIDATION;
-			secondCharValid=CHAR_SECONCD_VALIDATION;
+			secondCharValid=CHAR_SECOND_VALIDATION;
 		}
 		else{
 			rfcSize=RFC_SIZE-1;
 			firstCharValid=CHAR_FIRST_VALIDATION-1;
-			secondCharValid=CHAR_SECONCD_VALIDATION-1;
+			secondCharValid=CHAR_SECOND_VALIDATION-1;
 			rfc=new StringBuilder(RFC_SIZE-1);
 		}
 		rfc.append(getRandomString(firstCharValid,ONLY_LETTERS));
@@ -391,7 +391,7 @@ public class StringUtil {
 			caracterPrimeraValidacion=esRfcCompleto?
 					CHAR_FIRST_VALIDATION:CHAR_FIRST_VALIDATION-1;
 			caracterSegundaValidacion=esRfcCompleto?
-					CHAR_SECONCD_VALIDATION:CHAR_SECONCD_VALIDATION-1;	
+					CHAR_SECOND_VALIDATION:CHAR_SECOND_VALIDATION-1;	
 			if(!isValidName(r.substring(0, caracterPrimeraValidacion))){
 				return false;
 			}
