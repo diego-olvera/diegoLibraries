@@ -3,6 +3,7 @@ package diegoLibraries.string;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.regex.Pattern;
 
 import diegoLibraries.exception.UtilException;
 import diegoLibraries.math.Number;
@@ -29,8 +30,11 @@ public class StringUtil {
 	public static final int ANY_CHARACTER=4;
 	
 	public static final int RFC_SIZE=13;
-	//Validaciones de RFC
+	//RFC Validations
 	public static final int CHAR_FIRST_VALIDATION=4,CHAR_SECONCD_VALIDATION=10;  
+	
+	public static Pattern pwdPattern = Pattern
+				.compile("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,100})");
 	
 	public static boolean anagram(ArrayList<String> strings) {
 		int i,stringsSize=strings.size();
@@ -45,7 +49,7 @@ public class StringUtil {
 				anagram=stringFrequencies.get(i).equals(stringFrequencies.get(i+1));
 			}
 		}
-		return anagram;
+		return anagram && stringsSize>1;
 	}
 	public static String getCamelCaseStringWithNoSpaces(String str) {
 		StringBuilder newString=new StringBuilder();
@@ -77,7 +81,7 @@ public class StringUtil {
 			}
 		}
 		return newString.toString();
-	}
+	} 
 	public static String getCamelCaseStringWithSpaces(String str) {
 		StringBuilder newString=new StringBuilder();
 		char aux;
@@ -106,7 +110,7 @@ public class StringUtil {
 			newString.append(aux);
 		}
 		return newString.toString();
-	} 
+	}   
 	public static HashMap<Character,WrapperInt> getFrequencies(String str){
 		HashMap<Character,WrapperInt> frequencies=new HashMap<>();
 		char aux;
@@ -123,7 +127,7 @@ public class StringUtil {
 			
 		}
 		return frequencies;
-	}   
+	}
 	public static String getRandomRFC(boolean fullRFC){
 		StringBuilder rfc;
 		int firstCharValid,secondCharValid;
@@ -306,10 +310,10 @@ public class StringUtil {
 		}
 		return cuentaDigitos>=1 && cuentaLetras>=1;
 	}
+	
 	public static boolean hasNumbersWithSeparator(String cadena,String separador){
 		return hasOnlyDigits(cadena.replaceAll(separador, ""));
 	}
-	
 	public static boolean hasOnlyDigits(String t){
 		if(t==null) 
 			return false;
@@ -349,7 +353,7 @@ public class StringUtil {
 		strings.add(a);
 		strings.add(b);
 		return anagram(strings);
-	}
+	}   
 	public static boolean isPalindromic(String str){ 
 		for(int left=0,right=str.length()-1;left<right;left++,right--){
 			if(str.charAt(left)!=str.charAt(right)){
@@ -357,7 +361,7 @@ public class StringUtil {
 			}
 		}
 		return true;
-	}   
+	}
 	public static boolean isValidName(String n){
 		if(n!=null){ 
 			n= n.replaceAll("\\s", ""); 
@@ -374,6 +378,10 @@ public class StringUtil {
 			return false;
 		}			
 	}
+	public static boolean isValidPassword(String p) {
+		return pwdPattern.matcher(p).matches();
+	}
+		
 	public static boolean isValidRFC(String r){
 		if(r==null)
 			return false;
@@ -403,33 +411,16 @@ public class StringUtil {
 		}
 		return !o.replaceAll("\\s", "").equals("");
 	}
-		
 	public static boolean isValidTelephoneWithNumbersAndScores(String t){
 		return hasNumbersWithSeparator(t, "-");
 	}
-	public static void pruebaCamelCaseReplace() {
-		String a="hello\r\n";
-		String b="java";
-		System.out.println(getCamelCaseStringWithSpaces(a+" "+b));
+	public static boolean isValidUsername(String s) {
+		String regex;
+		//regex="^\\p{Alpha}+[\\p{Alnum|_}]*$";
+		regex="[a-zA-Z_]+[{a-zA-Z}|{0-9}|_]*$";
+		return s.matches(regex);
 	}
-	public static void pruebaRellenador() {
-		ArrayList<String> rellenadores=new ArrayList<String>();
-		String[] strings=getWords("He is a very very good boy, isn't he?",rellenadores);
-		for(int i=0,j=strings.length;i<j;i++){
-			System.out.println("["+strings[i]+rellenadores.get(i)+"]");
-		}	
-	}
-	public static void pruebaSplitWords() {
-		String cad;
-		cad="           YES      leading spaces        are valid,    problemsetters are         evillllll\r\n" + 
-				"";
-		cad="                        ";
-		ArrayList<String> words=splitWords(cad);
-		System.out.println(words.size());
-		for(String s:words) {
-			System.out.println(s);
-		}
-	}
+	
 	public static String removeSpaces(String s){
 		return s.replaceAll("\\s","");
 	}
@@ -546,32 +537,5 @@ public class StringUtil {
     		}
     	}
 		return normalString.toString();
-	}
-	public static boolean isValidUsername(String s) {
-		String regex;
-		//regex="^\\p{Alpha}+[\\p{Alnum|_}]*$";
-		regex="[a-zA-Z_]+[{a-zA-Z}|{0-9}|_]*$";
-		return s.matches(regex);
-	}
-	static void testValidUsername() {
-		/**
-		 * 	4
-			alpha_naheed
-			xahidbuffon
-			nagib@007
-			123Swakkhar
-		 */
-		System.out.println(isValidUsername("123Swakkhar"));
-		System.out.println(isValidUsername("diego_3252_Sg@"));
-		System.out.println(isValidUsername("diego25sghs34"));
-	}
-	public static void testFrequencies() {
-		ArrayList<String> strings=new ArrayList<>();
-		strings.add("a a a b c c");
-		strings.add("b a a a c c");
-		System.out.println(anagram(strings)); 
-	}
-	public static void main(String[] args) {
-		testValidUsername();
-	}
+	}	
 }
