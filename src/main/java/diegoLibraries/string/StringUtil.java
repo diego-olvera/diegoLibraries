@@ -35,7 +35,15 @@ public class StringUtil {
 	
 	public static Pattern pwdPattern = Pattern
 				.compile("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,100})");
-	 
+	public static final String REG_EXP_CALENDAR="\\d+-\\d+$";
+	public static final String REG_EXP_BI_CALENDAR="\\d+[a|A|b|B]$";
+
+	public static final Regex regexCalendar=new Regex(REG_EXP_CALENDAR);
+	public static final Regex regexBiCalendar=new Regex(REG_EXP_BI_CALENDAR);
+	
+	public static boolean isValidCalendar(String c) {
+		return regexCalendar.matches(c) | regexBiCalendar.matches(c);
+	}
 	public static boolean anagram(ArrayList<String> strings) {
 		int i,stringsSize=strings.size();
 		ArrayList<HashMap<Character,WrapperInt>> stringFrequencies=new ArrayList<>(stringsSize);
