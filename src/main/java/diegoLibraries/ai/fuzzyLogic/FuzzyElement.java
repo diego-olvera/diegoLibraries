@@ -8,7 +8,7 @@ public class FuzzyElement {
 	
 	public FuzzyElement(String linguisticValue) {
 		setLinguisticValue(linguisticValue);
-	}
+	} 
 	
 	
 	public String getLinguisticValue() {
