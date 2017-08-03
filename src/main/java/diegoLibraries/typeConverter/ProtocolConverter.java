@@ -1,37 +1,50 @@
 package diegoLibraries.typeConverter;
 
-import java.io.IOException;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.sax.SAXSource;
+import javax.xml.transform.sax.SAXTransformerFactory;
+import javax.xml.transform.stream.StreamResult;
 
 import org.json.JSONObject;
 import org.json.XML;
+import org.xml.sax.InputSource;
 
 public class ProtocolConverter {
-	
+	public static String getFormatJson(String json) {
+		return getFormatJson(json,2);
+	}
+	public static String getFormatJson(String json,int spaces) {
+		return new JSONObject(json).toString(spaces);
+	}
 	public static String fromJsonToXml(String json) {
 		return XML.toString(new JSONObject(json));
+	}
+	public static String getFormatXml(String xml) {
+		return getFormatXml(xml,2);
+	}
+	public static String getFormatXml(String xml,int spaces) {
+		 try{
+	            Transformer serializer= SAXTransformerFactory.newInstance().newTransformer();
+	            serializer.setOutputProperty(OutputKeys.INDENT, "yes");
+	            //serializer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+	            serializer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+	            //serializer.setOutputProperty("{http://xml.customer.org/xslt}indent-amount", "2");
+	            Source xmlSource=new SAXSource(new InputSource(new ByteArrayInputStream(xml.getBytes())));
+	            StreamResult res =  new StreamResult(new ByteArrayOutputStream());            
+	            serializer.transform(xmlSource, res);
+	            return new String(((ByteArrayOutputStream)res.getOutputStream()).toByteArray());
+	        }catch(Exception e){
+	            //TODO log error
+	            return xml;
+	        }
 	}
 	public static String fromXmlToJson(String xml) {
 		return XML.toJSONObject(xml).toString();
 	}
-	public static void usingJsonOrg() {
-		String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-	             "<errors>\n" +
-	             "  <error>\n" +
-	             "    <status>400</status>\n" +
-	             "    <message>The field 'quantity' is invalid.</message>\n" +
-	             "    <details>\n" +
-	             "      <invalid_reason>The quantity specified is greater than the quantity of the product that is available to ship.</invalid_reason>\n" +
-	             "      <available_quantity>0</available_quantity>\n" +
-	             "      <order_product_id>12525</order_product_id>\n" +
-	             "    </details>\n" +
-	             "  </error>\n" +
-	             "</errors>";
-
-		String json = fromXmlToJson(xml);
-		System.out.println(json);
-		System.out.println(fromJsonToXml(json));
-	}
-	public static void main(String[] args) throws IOException {
-		usingJsonOrg();
-	}
+	
 }
