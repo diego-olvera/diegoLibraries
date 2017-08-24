@@ -11,6 +11,11 @@
   </properties>
   <dependencies>
   	<dependency>
+		<groupId>org.mongodb</groupId>
+		<artifactId>mongo-java-driver</artifactId>
+		<version>2.10.1</version>
+	</dependency>
+  	<dependency>
 	    <groupId>com.sparkjava</groupId>
 	    <artifactId>spark-core</artifactId>
 	    <version>2.6.0</version>
@@ -119,6 +124,12 @@
 	    <artifactId>json</artifactId>
 	    <version>20160810</version>
 	</dependency>
+	
+	<dependency>
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+      <version>2.6.2</version>
+    </dependency>
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>

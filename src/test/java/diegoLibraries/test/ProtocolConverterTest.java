@@ -1,11 +1,8 @@
 package diegoLibraries.test;
 
-import static diegoLibraries.typeConverter.ProtocolConverter.fromJsonToXml;
-import static diegoLibraries.typeConverter.ProtocolConverter.fromXmlToJson;
-import static diegoLibraries.typeConverter.ProtocolConverter.getFormatXml;
+import static diegoLibraries.typeConverter.ProtocolConverter.*;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
 
 import org.junit.Test;
 
@@ -13,24 +10,17 @@ import diegoLibraries.file.FileUtil;
 
 public class ProtocolConverterTest {
 
-	@Test
+	@Test()
 	public void test() {
-			//String json = fromXmlToJson(getData());
-			//System.out.println(getFormatJson(json));
-			String data=getData();
-			data=fromJsonToXml(fromXmlToJson(data));
-			System.out.println(getFormatXml(data));
-
-			//System.out.println(fromJsonToXml(json));
-		
-	}
-	protected  String getData() {
 		try {
-			return FileUtil.getContents("prices.xml",Charset.forName("utf-8"));
+			String[] newFiles={"prices2.json","prices2.xml"};
+			convertXmlToJson("prices.xml",newFiles[0],true);
+			convertJsonToXml(newFiles[0],newFiles[1],true);
+			FileUtil.deleteFiles(newFiles);
 		} catch (IOException e) {
 			e.printStackTrace();
-			return null;
 		}
+		
 	}
 
 }

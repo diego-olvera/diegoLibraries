@@ -13,22 +13,22 @@ public class CurrentDate{
 	private static GregorianCalendar getCurrentGregorianCalendar(){
 		return new GregorianCalendar();
 	}
-    public static int getDia(){
+    public static int getDay(){
         return getCurrentGregorianCalendar().get(Calendar.DAY_OF_MONTH); 
     }
-    public  static int getMes(){
+    public  static int getMonth(){
         return getCurrentGregorianCalendar().get(Calendar.MONTH);  
     }
-    public  static int getAnio(){
+    public  static int getYear(){
         return getCurrentGregorianCalendar().get(Calendar.YEAR); 
     }
-    public static int getHoraEn24Horas(){
+    public static int getHour(){
     	return getCurrentGregorianCalendar().get(Calendar.HOUR_OF_DAY);
     }
-    public static int getMinutos(){
+    public static int getMinutes(){
     	return getCurrentGregorianCalendar().get(Calendar.MINUTE);
     }
-    public static int getSegundos(){
+    public static int getSeconds(){
     	return getCurrentGregorianCalendar().get(Calendar.SECOND);
     }
     public static Date getDate(){
@@ -37,12 +37,12 @@ public class CurrentDate{
     public static TimeStamp getTimeStamp(){
 		TimeStamp estampa=new TimeStamp();
 		try {
-			estampa.setHour(getHoraEn24Horas());
-			estampa.setMinutes(getMinutos());
-			estampa.setSeconds(getSegundos());
-			estampa.fijaAnio(getAnio());
-			estampa.fijaMes(getMes());
-			estampa.fijaDia(getDia());
+			estampa.setHour(getHour());
+			estampa.setMinutes(getMinutes());
+			estampa.setSeconds(getSeconds());
+			estampa.fijaAnio(getYear());
+			estampa.fijaMes(getMonth());
+			estampa.fijaDia(getDay());
 		} catch (InvalidAttributesException e) {
 			e.printStackTrace();
 		}		
